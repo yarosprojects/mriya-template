@@ -6,6 +6,7 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { i18n } from "@/src/consts/i18n.files";
 import Header from "@/src/components/Header.astro";
 import Footer from "@/src/components/Footer.astro";
+import { ClientRouter } from "astro:transitions";
 
 const locale = Astro.params.locale as Language;
 const pathname = Astro.url.pathname;
@@ -23,6 +24,37 @@ const detectedLocale =
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>404 - {translate.errors.not_found}</title>
+
+		<meta charset="UTF-8">
+		<meta name="description" content={translate.meta_tags.description}>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content={translate.meta_tags.key_words}>
+		<meta name="author" content={translate.school_name_variants.full_name}>
+		<meta http-equiv="content-language" content={locale}>
+		<meta property="og:type" content="website">
+		<meta property="og:title" content={translate.school_name_variants.footer_full_name}>
+		<meta property="og:description" content={translate.meta_tags.description}>
+		<meta property="og:image" content="https://www.mriya-bcn.vercel.app/logotip.jpg">
+		<meta property="og:url" content={`https://www.mriya-bcn.vercel.app/`}>
+		<meta property="og:site_name" content={translate.meta_tags.name}>
+		<meta property="og:locale" content={locale}>
+		<meta name="referrer" content="strict-origin-when-cross-origin">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="dns-prefetch" href="//fonts.gstatic.com">
+		<link rel="alternate" hreflang="es-ES" href="https://www.mriya-bcn.vercel.app/es-ES/">
+		<link rel="alternate" hreflang="en-EN" href="https://www.mriya-bcn.vercel.app/en-EN/">
+		<link rel="alternate" hreflang="uk-UA" href="https://www.mriya-bcn.vercel.app/uk-UA/">
+		<link rel="alternate" hreflang="ca-ES" href="https://www.mriya-bcn.vercel.app/ca-ES/">
+		<script is:inline type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				"name": "Mriya BCN",
+				"url": "https://www.mriya-bcn.vercel.app"
+			}
+		</script>
+
+		<ClientRouter />
 	</head>
 	<body>
         <Header detectedLocale={detectedLocale} />

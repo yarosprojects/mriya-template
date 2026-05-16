@@ -18,11 +18,39 @@ const translate = i18n[locale];
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+		<link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{translate.site_titels.label_plus_city} - {title}</title>
 
+		<meta charset="UTF-8">
+		<meta name="description" content={translate.meta_tags.description}>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content={translate.meta_tags.key_words}>
+		<meta name="author" content={translate.school_name_variants.full_name}>
+		<meta http-equiv="content-language" content={locale}>
+		<meta property="og:type" content="website">
+		<meta property="og:title" content={translate.school_name_variants.footer_full_name}>
+		<meta property="og:description" content={translate.meta_tags.description}>
+		<meta property="og:image" content="https://www.mriya-bcn.vercel.app/logotip.jpg">
+		<meta property="og:url" content={`https://www.mriya-bcn.vercel.app/`}>
+		<meta property="og:site_name" content={translate.meta_tags.name}>
+		<meta property="og:locale" content={locale}>
+		<meta name="referrer" content="strict-origin-when-cross-origin">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="dns-prefetch" href="//fonts.gstatic.com">
+		<link rel="alternate" hreflang="es-ES" href="https://www.mriya-bcn.vercel.app/es-ES/">
+		<link rel="alternate" hreflang="en-EN" href="https://www.mriya-bcn.vercel.app/en-EN/">
+		<link rel="alternate" hreflang="uk-UA" href="https://www.mriya-bcn.vercel.app/uk-UA/">
+		<link rel="alternate" hreflang="ca-ES" href="https://www.mriya-bcn.vercel.app/ca-ES/">
+		<script is:inline type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				"name": "Mriya BCN",
+				"url": "https://www.mriya-bcn.vercel.app"
+			}
+		</script>
 		<ClientRouter />
 	</head>
 	<body class="w-full min-h-screen flex flex-col">
@@ -36,11 +64,12 @@ const translate = i18n[locale];
 </html>
 
 <style is:global>
-    .invert-color, .invert-color-opaco {
-        animation: invert-color linear forwards;
-        animation-timeline: scroll();
-        animation-range: 0 250px;
-    }
+	.invert-color,
+	.invert-color-opaco {
+		animation: invert-color linear forwards;
+		animation-timeline: scroll();
+		animation-range: 0 250px;
+	}
 
 	.invert-color {
 		color: #ffffff;
@@ -51,13 +80,13 @@ const translate = i18n[locale];
 		opacity: 0.6;
 	}
 
-    @keyframes invert-color {
-        from {
-            color: #ffffff;
-        }
+	@keyframes invert-color {
+		from {
+			color: #ffffff;
+		}
 
-        to {
-            color: #000000;
-        }
-    }
+		to {
+			color: #000000;
+		}
+	}
 </style>

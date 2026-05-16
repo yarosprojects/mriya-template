@@ -1,5 +1,10 @@
 export default {
     hello: "Hola món",
+    meta_tags: {
+        name: "«Mriya» Barcelona",
+        description: "Escola Ucraïnesa «Mriya» en la ciutat de Barcelona, Espanya",
+        key_words: "Escola Ucraïnesa, Escola Barcelona, Escola Ucraïnesa Barcelona, Escola Ucraïnesa a Barcelona, «Mriya», Mriya, Escola Ucraïnesa «Mriya», Escola Ucraïnesa Mriya, Escola Ucraïnesa «Mriya» a Barcelona, Escola Ucraïnesa Mriya a Barcelona",
+    },
     under_header: "Escola ucraïnesa a Barcelona amb educació oficial, cultura i comunitat.",
     site_slogan: "Somia, i tot et sortirà bé",
     school_name_variants: {

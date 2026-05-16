@@ -1,5 +1,10 @@
 export default {
     hello: "Hello world",
+    meta_tags: {
+        name: "«Mriya» Barcelona",
+        description: "Ukrainian school «Mriya» in Barcelona, Spain",
+        key_words: "Ukrainian School, School Barcelona, Ukrainian School Barcelona, Ukrainian School in Barcelona, “Mriya”, Mriya, Ukrainian School “Mriya”, Ukrainian School Mriya, Ukrainian School “Mriya” in Barcelona, Ukrainian School Mriya in Barcelona",
+    },
     under_header: "Ukrainian school in Barcelona with official education, culture and community.",
     site_slogan: "Dream, and everything will work out for you",
     school_name_variants: {
