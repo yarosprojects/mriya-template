@@ -1,0 +1,404 @@
+---
+// export { getLocaleStaticPaths as getStaticPaths } from "@/src/utils/getLocaleStaticPaths";
+
+import Layout from "@layouts/Layout.astro";
+import type { Language } from "@/src/types/language.type";
+import { i18n } from "@/src/consts/i18n.files";
+import { phone, email, phone_link } from "@/src/consts/metadata";
+import { actions } from "astro:actions";
+
+const result = Astro.getActionResult(actions.sendContact);
+const locale = Astro.params.locale as Language;
+const translate = i18n[locale];
+const getErrorMessage = (error: any) => {
+    const text = error?.message || "";
+
+    if (text.includes('"name"')) {
+        return "Por favor introduce tu nombre.";
+    }
+
+    if (text.includes('"email"')) {
+        return "Introduce un email válido.";
+    }
+
+    if (text.includes('"message"')) {
+        return "El mensaje no puede estar vacío.";
+    }
+
+    if (text.includes('"Invalid input: expected string, received null"')) {
+        return "Hay campos vacios";
+    } 
+
+    return "Ha ocurrido un error. Inténtalo otra vez.";
+};
+console.log(result?.error);
+---
+
+<Layout title={translate.site_titels.contact}>
+    {
+        result?.error && (
+            <div
+                id="contact-alert"
+                class="animate-fade-in-up animate-duration-300 fixed bottom-6 right-6 z-10000 max-w-md overflow-hidden rounded-3xl border border-red-500/15 bg-white shadow-[0_20px_80px_rgba(0,0,0,.12)] backdrop-blur-xl"
+            >
+                <div class="flex items-start gap-4 p-5">
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-red-500 text-white text-2xl">
+                        <i class="icon-[solar--danger-triangle-bold]" />
+                    </div>
+
+                    <div class="flex flex-1 flex-col">
+                        <span class="text-sm uppercase tracking-[0.2em] text-red-500 font-black">
+                            Error
+                        </span>
+
+                        <p class="mt-1 text-sm leading-relaxed text-neutral-600 wrap-break-word">
+                            {result.error.message}
+                        </p>
+                    </div>
+
+                    <button
+                        id="close-contact-alert"
+                        type="button"
+                        class="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-black/5 text-xl text-neutral-500 transition-all hover:bg-black/10 hover:text-black"
+                    >
+                        <i class="icon-[heroicons--x-mark]" />
+                    </button>
+                </div>
+
+                <div class="h-1 w-full bg-red-500/10 overflow-hidden">
+                    <div
+                        id="contact-alert-progress"
+                        class="h-full w-full bg-red-500 animate-[shrink_5s_linear_forwards]"
+                    />
+                </div>
+            </div>
+        )
+    }
+    <section
+        class="relative min-h-screen overflow-hidden bg-[#f5f5f3] pt-40 md:pb-32 px-0 md:px-10"
+    >
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-225 h-225 rounded-full bg-yellow-400/8 blur-3xl"
+        >
+        </div>
+
+        <div
+            class="absolute -bottom-40 -left-40 w-125 h-125 rounded-full bg-blue-500/8 blur-3xl"
+        >
+        </div>
+
+        <div
+            class="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center"
+        >
+            <span
+                class="px-6 py-3 rounded-full border border-yellow-400/30 bg-yellow-400/8 uppercase tracking-[0.35em] text-xs md:text-sm text-yellow-700 font-bold"
+            >
+                {translate.school_name_variants.ukrainian_school}
+                <b>{translate.school_name_variants.name}</b>
+            </span>
+
+            <h1
+                class="mt-8 text-5xl md:text-8xl leading-none font-black tracking-tight text-black max-w-5xl"
+            >
+                {translate.site_titels.contact}
+            </h1>
+
+            <div
+                class="mt-8 w-32 h-1 rounded-full bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-300"
+            >
+            </div>
+
+            <p
+                class="mt-10 max-w-3xl text-neutral-500 text-lg md:text-2xl leading-[1.8]"
+            >
+                {translate.contact_page.hero.description}
+            </p>
+        </div>
+
+        <div
+            class="relative z-10 max-w-7xl mx-auto mt-24 grid grid-cols-1 xl:grid-cols-[1fr_1.2fr] md:gap-10"
+        >
+            <div class="flex flex-col md:pt-0 pt-8 md:gap-8">
+                <div
+                    class="md:rounded-[38px] md:border md:border-black/5 bg-white/70 backdrop-blur-xl overflow-hidden md:shadow-[0_20px_80px_rgba(0,0,0,.06)] animate-fade-in-up animate-duration-700"
+                >
+                    <div class="p-10 md:p-12 flex flex-col gap-10">
+                        <div class="flex flex-col gap-5">
+                            <span
+                                class="text-yellow-600 uppercase tracking-[0.3em] text-xs font-bold"
+                            >
+                                {translate.contact_page.contacts.badge}
+                            </span>
+
+                            <h2
+                                class="text-3xl md:text-5xl font-black leading-tight text-black"
+                            >
+                                {translate.contact_page.contacts.title}
+                            </h2>
+
+                            <p
+                                class="text-neutral-500 text-base md:text-lg leading-[1.8]"
+                            >
+                                {translate.contact_page.contacts.description}
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col gap-5">
+                            <a
+                                href={`${phone_link}`}
+                                class="group rounded-3xl bg-black/3 hover:bg-black/5 border border-black/5 transition-all p-6 flex items-center gap-5"
+                            >
+                                <div
+                                    class="w-16 h-16 rounded-2xl bg-yellow-400 text-black flex justify-center items-center text-3xl shrink-0"
+                                >
+                                    <i class="icon-[solar--phone-calling-bold]"
+                                    ></i>
+                                </div>
+
+                                <div class="flex flex-col text-left">
+                                    <span
+                                        class="text-neutral-400 uppercase tracking-[0.2em] text-xs"
+                                    >
+                                        {translate.contact_page.contacts.phone}
+                                    </span>
+
+                                    <span
+                                        class="text-xl md:text-2xl font-bold mt-1 text-black"
+                                    >
+                                        +34 {phone}
+                                    </span>
+                                </div>
+                            </a>
+
+                            <a
+                                href="mailto:info@mriya-barcelona.com"
+                                class="group rounded-3xl bg-black/3 hover:bg-black/5 border border-black/5 transition-all p-6 flex items-center gap-5"
+                            >
+                                <div
+                                    class="w-16 h-16 rounded-2xl bg-blue-400 text-black flex justify-center items-center text-3xl shrink-0"
+                                >
+                                    <i class="icon-[solar--letter-bold]"></i>
+                                </div>
+
+                                <div class="flex flex-col text-left">
+                                    <span
+                                        class="text-neutral-400 uppercase tracking-[0.2em] text-xs"
+                                    >
+                                        {translate.contact_page.contacts.email}
+                                    </span>
+
+                                    <span
+                                        class="text-lg md:text-xl font-bold mt-1 break-all text-black"
+                                    >
+                                        {email}
+                                    </span>
+                                </div>
+                            </a>
+
+                            <a
+                                href="https://maps.app.goo.gl/s2DiSX15yhubjW3UA"
+                                target="_blank"
+                                class="group rounded-3xl bg-black/3 hover:bg-black/5 border border-black/5 transition-all p-6 flex items-center gap-5"
+                            >
+                                <div
+                                    class="w-16 h-16 rounded-2xl bg-red-400 text-black flex justify-center items-center text-3xl shrink-0"
+                                >
+                                    <i class="icon-[solar--map-point-bold]"></i>
+                                </div>
+
+                                <div class="flex flex-col text-left">
+                                    <span
+                                        class="text-neutral-400 uppercase tracking-[0.2em] text-xs"
+                                    >
+                                        {
+                                            translate.contact_page.contacts
+                                                .address
+                                        }
+                                    </span>
+
+                                    <span
+                                        class="text-base md:text-lg font-semibold mt-1 leading-relaxed text-black"
+                                    >
+                                        {
+                                            translate.contact_page.contacts
+                                                .address_value
+                                        }
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="md:rounded-[38px] md:border md:border-black/5 bg-white/70 backdrop-blur-xl p-8 md:p-10 md:shadow-[0_20px_80px_rgba(0,0,0,.05)]"
+                >
+                    <div class="flex items-start gap-5 pt-5 pb-15 md:py-0">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-yellow-400/15 text-yellow-600 flex justify-center items-center text-3xl shrink-0"
+                        >
+                            <i class="icon-[solar--clock-circle-bold]"></i>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <h3
+                                class="text-2xl font-black text-black leading-none"
+                            >
+                                {translate.contact_page.working_hours.title}
+                            </h3>
+
+                            <p
+                                class="mt-4 text-neutral-600 text-base md:text-lg leading-[1.8]"
+                            >
+                                {translate.contact_page.working_hours.saturday}
+                                <br />
+                                {translate.contact_page.working_hours.closed}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="md:rounded-[38px] md:border md:border-black/5 bg-white/70 backdrop-blur-xl md:shadow-[0_20px_80px_rgba(0,0,0,.06)] overflow-hidden animate-fade-in-up animate-duration-700 md:pb-0 pb-10"
+            >
+                <div
+                    class="px-8 md:px-12 pt-10 md:pt-12 pb-8 border-b border-black/5"
+                >
+                    <span
+                        class="text-yellow-600 uppercase tracking-[0.3em] text-xs font-bold"
+                    >
+                        {translate.contact_page.form.badge}
+                    </span>
+
+                    <h2
+                        class="mt-5 text-3xl md:text-5xl font-black tracking-tight text-black"
+                    >
+                        {translate.contact_page.form.title}
+                    </h2>
+
+                    <p
+                        class="mt-5 text-neutral-500 text-base md:text-lg leading-[1.8] max-w-2xl"
+                    >
+                        {translate.contact_page.form.description}
+                    </p>
+                </div>
+
+                <form
+                    method="POST"
+                    action={actions.sendContact}
+                    class="p-8 md:p-12 flex flex-col gap-8"
+                >
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-3">
+                            <label
+                                for="name"
+                                class="text-sm uppercase tracking-[0.2em] text-neutral-500 font-bold"
+                            >
+                                {translate.contact_page.form.name}
+                            </label>
+
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                placeholder={translate.contact_page.form
+                                    .name_placeholder}
+                                class="h-16 rounded-2xl border border-black/10 bg-white/80 px-6 text-lg text-black outline-none transition-all focus:border-yellow-400 focus:bg-white"
+                            />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label
+                                for="email"
+                                class="text-sm uppercase tracking-[0.2em] text-neutral-500 font-bold"
+                            >
+                                {translate.contact_page.form.email}
+                            </label>
+
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                placeholder={translate.contact_page.form
+                                    .email_placeholder}
+                                class="h-16 rounded-2xl border border-black/10 bg-white/80 px-6 text-lg text-black outline-none transition-all focus:border-yellow-400 focus:bg-white"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                        <label
+                            for="message"
+                            class="text-sm uppercase tracking-[0.2em] text-neutral-500 font-bold"
+                        >
+                            {translate.contact_page.form.message}
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="8"
+                            placeholder={translate.contact_page.form
+                                .message_placeholder}
+                            class="rounded-3xl border border-black/10 bg-white/80 px-6 py-5 text-lg text-black outline-none transition-all resize-none focus:border-yellow-400 focus:bg-white"
+                        ></textarea>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="group mt-2 h-16 rounded-full bg-black hover:bg-neutral-900 transition-all px-10 text-lg font-bold text-white flex justify-center items-center gap-3 cursor-pointer shadow-[0_15px_50px_rgba(0,0,0,.15)]"
+                    >
+                        {translate.contact_page.form.submit}
+
+                        <i
+                            class="icon-[solar--arrow-right-linear] text-2xl group-hover:translate-x-1 transition-transform"
+                        ></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        const alert = document.getElementById("contact-alert");
+        const closeButton = document.getElementById("close-contact-alert");
+
+        if (!alert) return;
+
+        const removeAlert = () => {
+            alert.classList.remove("animate-fade-in-up");
+
+            alert.classList.add(
+                "animate-fade-out-down",
+                "animate-duration-300",
+            );
+
+            setTimeout(() => {
+                alert.remove();
+            }, 300);
+        };
+
+        const timeout = setTimeout(removeAlert, 5000);
+
+        closeButton?.addEventListener("click", () => {
+            clearTimeout(timeout);
+
+            removeAlert();
+        });
+    });
+</script>
+
+<style>
+    @keyframes shrink {
+        from {
+            width: 100%;
+        }
+
+        to {
+            width: 0%;
+        }
+    }
+</style>

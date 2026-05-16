@@ -1,0 +1,269 @@
+---
+// export { getLocaleStaticPaths as getStaticPaths } from "@/src/utils/getLocaleStaticPaths";
+import { Image } from "astro:assets";
+import type { Language } from "@/src/types/language.type";
+import { i18n } from "@/src/consts/i18n.files";
+import Layout from "@layouts/Layout.astro";
+import _2026 from "@images/graduates/2026_1.jpg";
+import _2025 from "@images/graduates/2025.jpg";
+import _2023 from "@images/graduates/2023.jpg";
+import _2022 from "@images/graduates/2022.jpg";
+import _2021 from "@images/graduates/2021.jpg";
+import _2020 from "@images/graduates/2020.jpg";
+import _2017 from "@images/graduates/2017.jpg";
+import _2016 from "@images/graduates/2016.jpg";
+import _2012 from "@images/graduates/2012.jpg";
+
+const locale = Astro.params.locale as Language;
+const translate = i18n[locale];
+const graduates = [
+    {
+        year: "2026",
+        title: `${translate.our_graduates.graduation} 2026`,
+        description:
+            "Незабутній рік для наших учнів, сповнений досягнень, емоцій та нових початків.",
+        image: _2026,
+    },
+
+    {
+        year: "2025",
+        title: `${translate.our_graduates.graduation} 2025`,
+        description:
+            "Святкові моменти, вручення дипломів та теплі спогади про шкільні роки.",
+        image: _2025,
+    },
+
+    {
+        year: "2023",
+        title: `${translate.our_graduates.graduation} 2023`,
+        description:
+            "Наші випускники продовжують свій шлях, зберігаючи українську культуру та знання.",
+        image: _2023,
+    },
+    {
+        year: "2022",
+        title: `${translate.our_graduates.graduation} 2022`,
+        description:
+            "Наші випускники продовжують свій шлях, зберігаючи українську культуру та знання.",
+        image: _2022,
+    },
+    {
+        year: "2021",
+        title: `${translate.our_graduates.graduation} 2021`,
+        description:
+            "Наші випускники продовжують свій шлях, зберігаючи українську культуру та знання.",
+        image: _2021,
+    },
+    {
+        year: "2020",
+        title: `${translate.our_graduates.graduation} 2020`,
+        description:
+            "Наші випускники продовжують свій шлях, зберігаючи українську культуру та знання.",
+        image: _2020,
+    },
+    {
+        year: "2017",
+        title: `${translate.our_graduates.graduation} 2017`,
+        description:
+            "Наші випускники продовжують свій шлях, зберігаючи українську культуру та знання.",
+        image: _2017,
+    },
+    {
+        year: "2016",
+        title: `${translate.our_graduates.graduation} 2016`,
+        description:
+            "Наші випускники продовжують свій шлях, зберігаючи українську культуру та знання.",
+        image: _2016,
+    },
+    {
+        year: "2012",
+        title: `${translate.our_graduates.graduation} 2012`,
+        description:
+            "Наші випускники продовжують свій шлях, зберігаючи українську культуру та знання.",
+        image: _2012,
+    },
+];
+---
+
+<Layout title="Our Graduates">
+    <section
+        class="relative overflow-hidden bg-linear-to-b from-black/5 via-white to-black/5 px-5 md:px-10 pt-42 md:pt-52 pb-28"
+    >
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-180 h-180 rounded-full bg-yellow-400/10 blur-3xl"
+        >
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto">
+            <div class="flex flex-col justify-center items-center text-center">
+                <span
+                    class="px-6 py-3 rounded-full border border-yellow-400/40 bg-yellow-400/10 text-yellow-600 uppercase tracking-[0.3em] text-xs md:text-sm font-bold"
+                >
+                    {translate.school_name_variants.full_name}
+                </span>
+
+                <h1
+                    class="mt-8 text-5xl md:text-7xl font-black tracking-tight text-black"
+                >
+                    {translate.our_graduates.title}
+                </h1>
+
+                <div class="mt-8 w-28 h-1 rounded-full bg-yellow-400"></div>
+
+                <p
+                    class="mt-10 max-w-3xl text-lg md:text-2xl leading-[1.8] text-neutral-600"
+                >
+                    {translate.our_graduates.description}
+                </p>
+            </div>
+
+            <div class="mt-28 flex flex-col gap-24">
+                {
+                    graduates.map((graduate, index) => (
+                        <section
+                            class={`graduate-sections opacity-0 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center ${
+                                index % 2 !== 0
+                                    ? "lg:[&>*:first-child]:order-2"
+                                    : ""
+                            }`}
+                        >
+                            <div class="flex flex-col">
+                                <span class="text-yellow-500 uppercase tracking-[0.3em] text-sm font-bold">
+                                    {translate.our_graduates.graduation_year}
+                                </span>
+
+                                <h2 class="mt-5 text-5xl md:text-7xl font-black text-black leading-none">
+                                    {graduate.year}
+                                </h2>
+
+                                <div class="mt-7 w-20 h-1 rounded-full bg-yellow-400" />
+
+                                <h3 class="mt-10 text-3xl md:text-5xl font-black text-black">
+                                    {graduate.title}
+                                </h3>
+
+                                <p class="mt-8 text-lg md:text-xl text-neutral-600 leading-[1.9] max-w-xl">
+                                    {graduate.description}
+                                </p>
+                            </div>
+
+                            <button
+                                type="button"
+                                class="relative group text-left cursor-zoom-in"
+                                data-image={graduate.image.src}
+                            >
+                                <div class="absolute inset-0 rounded-[40px] bg-yellow-400/10 blur-3xl" />
+
+                                <div class="relative overflow-hidden rounded-[40px] border border-black/5 bg-white/60 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,.06)]">
+                                    <Image
+                                        src={graduate.image}
+                                        alt={graduate.title}
+                                        class="w-full h-87.5 md:h-162.5 object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+
+                                    <div class="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" />
+
+                                    <div class="absolute bottom-0 left-0 p-8 md:p-10">
+                                        <span class="text-yellow-300 uppercase tracking-[0.25em] text-xs md:text-sm font-semibold">
+                                            {translate.school_name_variants.ukrainian_school}
+                                        </span>
+
+                                        <h3 class="mt-3 text-4xl md:text-6xl font-black text-white">
+                                            {graduate.year}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </button>
+                        </section>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <div
+        id="image-modal"
+        class="fixed inset-0 z-9999 hidden items-center justify-center bg-black/90 backdrop-blur-md p-5"
+    >
+        <button
+            id="close-modal"
+            type="button"
+            class="absolute top-6 right-6 flex items-center justify-center p-2 cursor-pointer rounded-full bg-white/10 hover:bg-white/20 transition-colors size-9"
+        >
+            <i class="icon-[mdi--close] text-3xl text-white"></i>
+        </button>
+
+        <img
+            id="modal-image"
+            src=""
+            alt="Graduation image"
+            class="animate-zoom-in max-w-full max-h-full rounded-[30px] shadow-[0_20px_100px_rgba(0,0,0,.45)]"
+        />
+    </div>
+</Layout>
+
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        const modalImage = document.getElementById(
+            "modal-image",
+        );
+        const modal = document.getElementById("image-modal");
+        const closeButton = document.getElementById("close-modal");
+        const triggers = document.querySelectorAll("[data-image]");
+        const $sections = document.querySelectorAll(".graduate-sections");
+
+        $sections.forEach(section => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("animate-fade-in-up");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.1 },
+            );
+
+            observer.observe(section);
+        });
+
+        triggers.forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                const image = trigger.getAttribute("data-image");
+
+                if (!image) return;
+
+                modalImage.src = image;
+
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+
+                document.body.classList.add("overflow-hidden");
+            });
+        });
+
+        const closeModal = () => {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+
+            modalImage.src = "";
+
+            document.body.classList.remove("overflow-hidden");
+        };
+
+        closeButton?.addEventListener("click", closeModal);
+
+        modal?.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    });
+</script>

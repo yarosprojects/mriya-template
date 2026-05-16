@@ -1,0 +1,349 @@
+---
+import type { Language } from "../types/language.type";
+import { i18n } from "@consts/i18n.files";
+import {
+    phone,
+    location,
+    instagram_link,
+    facebook_link,
+    youtube_link,
+    phone_link,
+    email,
+} from "../consts/metadata";
+import navigation from "../consts/navigation";
+
+const { detectedLocale = "" } = Astro.props;
+const locale = (Astro.params.locale as Language) || detectedLocale;
+const translate = i18n[locale];
+
+const resources_navigation = [
+    ...navigation.filter(
+        (item) =>
+            ![
+                "about",
+                "contact",
+                "teach-staff",
+                "our-graduates",
+                "statute",
+                "more",
+            ].includes(item.id),
+    ),
+
+    ...navigation
+        .filter((item) => item.id === "more")
+        .flatMap((item) =>
+            item.children.filter((child) =>
+                ["requirements"].includes(child.id),
+            ),
+        ),
+];
+
+const about_navigation = [
+    ...navigation.filter((item) => ["about", "teach-staff"].includes(item.id)),
+
+    ...navigation
+        .filter((item) => item.id === "more")
+        .flatMap((item) =>
+            item.children.filter((child) =>
+                ["statute", "our-graduates"].includes(child.id),
+            ),
+        ),
+];
+
+const contact_navigation = navigation.filter((item) => item.id === "contact");
+
+const footer_navigation = [
+    {
+        label: translate.footer.resources,
+        items: resources_navigation,
+    },
+    {
+        label: translate.footer.about,
+        items: about_navigation,
+    },
+];
+const footer_contact_navigation = [
+    {
+        label: translate.footer.contact,
+        items: contact_navigation,
+    },
+];
+---
+
+<footer
+    id="site-footer"
+    class="relative overflow-hidden border-t border-black/5 bg-white"
+>
+    <div
+        class="absolute -top-30 -right-30 h-80 w-80 rounded-full bg-yellow-400/10 blur-3xl"
+    >
+    </div>
+
+    <div
+        class="absolute -bottom-30 -left-30 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"
+    >
+    </div>
+
+    <div
+        class="relative z-10 mx-auto flex max-w-375 flex-col gap-20 px-5 py-20 md:px-10 xl:flex-row xl:justify-between"
+    >
+        <div class="max-w-65 flex flex-col gap-6">
+            <div class="flex flex-col gap-3">
+                <span
+                    class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-600"
+                >
+                    {translate.school_name_variants.ukrainian_school}
+                </span>
+
+                <h2 class="text-3xl leading-tight font-black text-black">
+                    {translate.school_name_variants.name}
+                </h2>
+            </div>
+
+            <p class="text-base leading-[1.9] text-neutral-500">
+                {translate.sliders.home_slider.description}
+            </p>
+
+            <div class="flex items-center gap-3 pt-2">
+                <a
+                    href={facebook_link}
+                    target="_blank"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 text-xl text-blue-600 hover:scale-105"
+                >
+                    <i class="icon-[mdi--facebook]"></i>
+                </a>
+
+                <a
+                    href={instagram_link}
+                    target="_blank"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-pink-500/10 text-xl text-pink-600 hover:scale-105"
+                >
+                    <i class="icon-[mdi--instagram]"></i>
+                </a>
+
+                <a
+                    href={youtube_link}
+                    target="_blank"
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-xl text-red-600 hover:scale-105"
+                >
+                    <i class="icon-[mdi--youtube]"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="flex flex-1 flex-col gap-16 lg:flex-row lg:justify-between">
+            <div class="flex flex-row flex-wrap gap-14">
+                {
+                    footer_navigation.map((group) => (
+                        <div class="flex min-w-40 flex-col gap-6">
+                            <h3 class="text-xl font-black text-black">
+                                {group.label}
+                            </h3>
+
+                            <nav class="group flex flex-col gap-4 text-neutral-500">
+                                {group.items.map((item) => {
+                                    const { href, translate_key } = item;
+
+                                    return (
+                                        <a
+                                            href={`/${locale}${href}`}
+                                            class="transition-opacity group-hover:opacity-50 hover:opacity-100!"
+                                        >
+                                            {translate.header[translate_key]}
+                                        </a>
+                                    );
+                                })}
+                            </nav>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <div
+                class="flex flex-col gap-16 md:flex-row md:justify-between xl:gap-20"
+            >
+                <div class="flex flex-col gap-6">
+                    <h3 class="text-xl font-black text-black">
+                        {translate.footer.contacts}
+                    </h3>
+
+                    <div class="flex flex-col gap-5">
+                        <a
+                            href={phone_link}
+                            class="group flex items-start gap-4"
+                        >
+                            <div
+                                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-yellow-400/15 text-xl text-yellow-600"
+                            >
+                                <i class="icon-[solar--phone-calling-bold]"></i>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-sm uppercase tracking-[0.2em] text-neutral-400"
+                                >
+                                    {translate.footer.mobile}
+                                </span>
+
+                                <span
+                                    class="text-black transition-colors group-hover:text-yellow-600"
+                                >
+                                    +34 {phone}
+                                </span>
+                            </div>
+                        </a>
+
+                        <a
+                            href={`mailto:${email}`}
+                            class="group flex items-start gap-4"
+                        >
+                            <div
+                                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 text-xl text-blue-600"
+                            >
+                                <i class="icon-[solar--letter-bold]"></i>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-sm uppercase tracking-[0.2em] text-neutral-400"
+                                >
+                                    {translate.footer.email}
+                                </span>
+
+                                <span
+                                    class="break-all text-black transition-colors group-hover:text-blue-600"
+                                >
+                                    {email}
+                                </span>
+                            </div>
+                        </a>
+
+                        <a
+                            href={location}
+                            target="_blank"
+                            class="group flex items-start gap-4"
+                        >
+                            <div
+                                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-red-500/10 text-xl text-red-500"
+                            >
+                                <i class="icon-[solar--map-point-bold]"></i>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-sm uppercase tracking-[0.2em] text-neutral-400"
+                                >
+                                    {translate.footer.address}
+                                </span>
+
+                                <span
+                                    class="leading-relaxed text-black transition-colors group-hover:text-red-500"
+                                >
+                                    {translate.sliders.home_slider.direction}
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div
+                        class="flex flex-col border-t border-t-black/10 py-5"
+                    >
+                        <nav class="group w-full flex flex-col gap-5 text-neutral-500">
+                            {
+                                footer_contact_navigation.map((contact_group) => {
+                                    const { items } = contact_group;
+    
+                                    return items.map((item) => {
+                                        const { href, translate_key } = item;
+    
+                                        return (
+                                            <a
+                                                href={`/${locale}${href}`}
+                                                class="transition-opacity group-hover:opacity-50 hover:opacity-100! flex flex-row justify-between items-center group"
+                                            >
+                                                {translate.footer[translate_key]}
+                                                <i class="icon-[line-md--chevron-small-right] ml-auto text-xl group-hover:translate-x-0.5 transition-transform" />
+                                            </a>
+                                        );
+                                    });
+                                })
+                            }
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-6 md:min-w-60">
+                    <h3 class="text-xl font-black text-black">
+                        {translate.footer.education}
+                    </h3>
+
+                    <div class="flex flex-col gap-4">
+                        <div
+                            class="rounded-lg border border-black/5 bg-black/2 px-5 py-2"
+                        >
+                            <span
+                                class="text-sm uppercase tracking-[0.2em] text-neutral-400"
+                            >
+                                {translate.footer.education_language}
+                            </span>
+
+                            <p class="mt-2 font-bold text-black">
+                                {translate.footer.ukrainian_language}
+                            </p>
+                        </div>
+
+                        <div
+                            class="rounded-lg border border-black/5 bg-black/2 px-5 py-2"
+                        >
+                            <span
+                                class="text-sm uppercase tracking-[0.2em] text-neutral-400"
+                            >
+                                {translate.footer.format}
+                            </span>
+
+                            <p class="mt-2 font-bold text-black">
+                                {translate.footer.format_type}
+                            </p>
+                        </div>
+
+                        <div
+                            class="rounded-lg border border-black/5 bg-black/2 px-5 py-2"
+                        >
+                            <span
+                                class="text-sm uppercase tracking-[0.2em] text-neutral-400"
+                            >
+                                {translate.footer.documents}
+                            </span>
+
+                            <p class="mt-2 font-bold text-black">
+                                {translate.footer.documents_type}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative z-10 border-t border-black/5 px-5 py-6 md:px-10">
+        <div
+            class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row"
+        >
+            <div class="flex flex-col">
+                <p class="text-center text-sm text-neutral-400 md:text-left">
+                    © {new Date().getFullYear()}
+                    {translate.school_name_variants.footer_full_name}
+                </p>
+
+                <p
+                    class="text-center text-sm text-neutral-400 md:px-4 md:text-left"
+                >
+                    {translate.footer.all_rights_reserved}
+                </p>
+            </div>
+
+            <p class="text-center text-sm text-yellow-600 md:text-right">
+                {translate.site_slogan}
+            </p>
+        </div>
+    </div>
+</footer>

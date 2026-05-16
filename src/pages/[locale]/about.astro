@@ -1,0 +1,213 @@
+---
+// export { getLocaleStaticPaths as getStaticPaths } from "@/src/utils/getLocaleStaticPaths";
+import Layout from "@layouts/Layout.astro";
+import type { Language } from "@/src/types/language.type";
+import { i18n } from "@/src/consts/i18n.files";
+
+const locale = Astro.params.locale as Language;
+const translate = i18n[locale];
+
+import history_1 from "@images/about/p-1.png";
+import history_2 from "@images/about/p-2.jpg";
+import history_3 from "@images/about/p-3.jpg";
+import history_4 from "@images/about/p-4.jpg";
+import history_5 from "@images/about/p-5.jpg";
+import history_6 from "@images/about/p-6.jpg";
+
+const timeline = [
+    {
+        year: "2010",
+        image: history_1,
+        resume: translate.about.timeline.opening.title,
+        text: translate.about.timeline.opening.text,
+    },
+    {
+        year: "2010",
+        image: history_2,
+        resume: translate.about.timeline.directors.title,
+        text: translate.about.timeline.directors.text,
+    },
+    {
+        year: "2010",
+        image: history_3,
+        resume: translate.about.timeline.education_start.title,
+        text: translate.about.timeline.education_start.text,
+    },
+    {
+        year: "2011",
+        image: history_4,
+        resume: translate.about.timeline.dreams.title,
+        text: translate.about.timeline.dreams.text,
+    },
+    {
+        year: "2011",
+        image: history_5,
+        resume: translate.about.timeline.team.title,
+        text: translate.about.timeline.team.text,
+    },
+    {
+        year: "2012-2013",
+        image: history_6,
+        resume: translate.about.timeline.statistics.title,
+        text: translate.about.timeline.statistics.text,
+    },
+];
+---
+
+<Layout title={translate.site_titels.about}>
+    <section class="relative overflow-hidden py-40">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="mb-32 flex flex-col items-center text-center">
+                <span
+                    class="animate-fade-in mb-5 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-5 py-2 text-sm font-medium tracking-[0.25em] uppercase text-yellow-600"
+                >
+                    {translate.about.badge}
+                </span>
+
+                <h1
+                    class="max-w-4xl text-5xl font-black leading-tight md:text-7xl animate-fade-in-down"
+                >
+                    {translate.about.title}
+                </h1>
+            </div>
+
+            <div class="relative">
+                <div
+                    class="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-linear-to-b from-yellow-400 via-yellow-500 to-transparent md:block"
+                >
+                </div>
+
+                <div class="flex flex-col gap-28">
+                    {
+                        timeline.map((item, index) => {
+                            const reverse = index % 2 !== 0;
+
+                            return (
+                                <article
+                                    class={`relative grid grid-cols-1 items-start gap-10 md:grid-cols-2 ${
+                                        reverse
+                                            ? "md:[&>*:first-child]:order-2"
+                                            : ""
+                                    }`}
+                                >
+                                    <div
+                                        class={`relative ${
+                                            reverse ? "md:pr-24" : "md:pl-24"
+                                        }`}
+                                    >
+                                        <div class="relative overflow-hidden rounded-4xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+                                            <span class="mb-6 inline-flex rounded-full border border-yellow-400/20 bg-yellow-400/10 uppercase px-4 py-1 text-sm font-semibold text-yellow-500">
+                                                {item.resume}
+                                            </span>
+
+                                            <p class="text-base leading-relaxed text-black/75 md:text-lg">
+                                                {item.text}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class={`relative flex ${
+                                            reverse
+                                                ? "md:justify-start"
+                                                : "md:justify-end"
+                                        }`}
+                                    >
+                                        <button
+                                            type="button"
+                                            class={`group relative overflow-hidden rounded-4xl shadow-2xl cursor-zoom-in ${
+                                                index % 3 === 0
+                                                    ? "max-w-xl"
+                                                    : index % 3 === 1
+                                                      ? "max-w-md"
+                                                      : "max-w-2xl"
+                                            }`}
+                                            data-image={item.image.src}
+                                        >
+                                            <img
+                                                src={item.image.src}
+                                                alt={item.year}
+                                                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+
+                                            <div class="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+                                        </button>
+                                    </div>
+
+                                    <div class="absolute left-1/2 top-1/2 hidden size-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white bg-yellow-400 shadow-[0_0_30px_rgba(250,204,21,.7)] md:block" />
+                                </article>
+                            );
+                        })
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div
+        id="image-modal"
+        class="fixed inset-0 z-9999 hidden items-center justify-center bg-black/90 backdrop-blur-md p-5"
+    >
+        <button
+            id="close-modal"
+            type="button"
+            class="absolute top-6 right-6 flex items-center justify-center p-2 cursor-pointer rounded-full bg-white/10 hover:bg-white/20 transition-colors size-9"
+        >
+            <i class="icon-[mdi--close] text-3xl text-white"></i>
+        </button>
+
+        <img
+            id="modal-image"
+            src=""
+            alt="Timeline image"
+            class="animate-zoom-in max-w-full max-h-full rounded-[30px] shadow-[0_20px_100px_rgba(0,0,0,.45)]"
+        />
+    </div>
+</Layout>
+
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        const modalImage = document.getElementById("modal-image");
+        const modal = document.getElementById("image-modal");
+        const closeButton = document.getElementById("close-modal");
+        const triggers = document.querySelectorAll("[data-image]");
+
+        triggers.forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                const image = trigger.getAttribute("data-image");
+
+                if (!image) return;
+
+                modalImage.src = image;
+
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+
+                document.body.classList.add("overflow-hidden");
+            });
+        });
+
+        const closeModal = () => {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+
+            modalImage.src = "";
+
+            document.body.classList.remove("overflow-hidden");
+        };
+
+        closeButton?.addEventListener("click", closeModal);
+
+        modal?.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    });
+</script>

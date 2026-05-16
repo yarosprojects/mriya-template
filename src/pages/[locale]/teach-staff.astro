@@ -1,0 +1,407 @@
+---
+// export { getLocaleStaticPaths as getStaticPaths } from "@/src/utils/getLocaleStaticPaths";
+
+import Layout from "@layouts/Layout.astro";
+import type { Language } from "@/src/types/language.type";
+import { Image } from "astro:assets";
+import { i18n } from "@/src/consts/i18n.files";
+
+import director from "@images/teach-staff/director.jpg";
+import zauch from "@images/teach-staff/zauch.jpg";
+import t_sydir from "@images/teach-staff/t_sydir.jpg";
+import l_savchak from "@images/teach-staff/l_savchak.jpg";
+import m_chernyavska from "@images/teach-staff/m_chernyavska.jpg";
+import n_polishchuk from "@images/teach-staff/n_polishchuk.jpg";
+import g_stupak from "@images/teach-staff/g_stupak.jpg";
+import a_melnyk from "@images/teach-staff/a_melnyk.jpg";
+import n_muzyka from "@images/teach-staff/n_muzyka.jpg";
+import a_karpova from "@images/teach-staff/a_karpova.jpg";
+import d_tamara from "@images/teach-staff/d_tamara.jpg";
+import l_kuzyk from "@images/teach-staff/l_kuzyk.jpg";
+import n_konovitska from "@images/teach-staff/n_konovitska.jpg";
+import o_dalavurak from "@images/teach-staff/o_dalavurak.jpg";
+import o_dudnyk from "@images/teach-staff/o_dudnyk.jpg";
+import r_monastyrska from "@images/teach-staff/r_monastyrska.jpg";
+import s_melychenko from "@images/teach-staff/s_melychenko.jpg";
+import t_prydolob from "@images/teach-staff/t_prydolob.jpg";
+import v_dalavurak from "@images/teach-staff/v_dalavurak.jpg";
+import v_danylenko from "@images/teach-staff/v_danylenko.jpg";
+import v_kryvokhyzhna from "@images/teach-staff/v_kryvokhyzhna.jpg";
+
+const locale = Astro.params.locale as Language;
+const translate = i18n[locale];
+const TEACHERS = [
+    {
+        image: director,
+        name: translate.teachers.shkolna_svitlana,
+        role: translate.pedagogic_personal_female.director,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.maths, translate.subjects.algebra, translate.subjects.geometry],
+        icons: [
+            "icon-[tabler--math]",
+            "icon-[gravity-ui--math-operations]",
+            "icon-[tabler--math-pi-divide-2]",
+        ],
+    },
+    {
+        image: zauch,
+        name: translate.teachers.rumak_svitalana,
+        role: translate.pedagogic_personal_female.subdirector,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.ukrainenian_history],
+        icons: ["icon-[tdesign--history]"],
+    },
+    {
+        image: t_sydir,
+        name: translate.teachers.sydir_tetiana,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.english_language, translate.subjects.world_literature],
+        icons: [
+            "icon-[ion--language]",
+            "icon-[material-symbols--books-movies-and-music]",
+        ],
+    },
+    {
+        image: o_dudnyk,
+        name: translate.teachers.dudnyk_oksana,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.ukrainian_language, translate.subjects.ukrainian_literature, translate.subjects.english_language, translate.subjects.world_literature],
+        icons: ["icon-[hugeicons--teacher]", "icon-[material-symbols--books-movies-and-music]", "icon-[ion--language]", "icon-[material-symbols--books-movies-and-music]"],
+    },
+    {
+        image: v_kryvokhyzhna,
+        name: translate.teachers.kryvokhyzhna_viktoriya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.ukrainian_language, translate.subjects.ukrainian_literature],
+        icons: ["icon-[hugeicons--teacher]", "icon-[material-symbols--books-movies-and-music]"],
+    },
+    {
+        image: l_savchak,
+        name: translate.teachers.savchak_larysa,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.geography, translate.subjects.world_history],
+        icons: ["icon-[uiw--map]", "icon-[tdesign--history]"],
+    },
+    {
+        image: m_chernyavska,
+        name: translate.teachers.chernyavska_mariya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.physics, translate.subjects.astronomy],
+        icons: [
+            "icon-[hugeicons--physics]",
+            "icon-[streamline-ultimate--astronomy-planet-saturn-1-bold]",
+        ],
+    },
+    {
+        image: n_polishchuk,
+        name: translate.teachers.polishchuk_nataliya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.ukrainenian_history],
+        icons: ["icon-[tdesign--history]"],
+    },
+    {
+        image: n_konovitska,
+        name: translate.teachers.konovitska_nadiya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.ukrainian_language, translate.subjects.ukrainian_literature],
+        icons: ["icon-[ion--language]", "icon-[material-symbols--books-movies-and-music]"],
+    },
+    {
+        image: g_stupak,
+        name: translate.teachers.stupak_halyna,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.chemistry, translate.subjects.biology],
+        icons: ["icon-[carbon--chemistry]", "icon-[eos-icons--organisms]"],
+    },
+    {
+        image: a_melnyk,
+        name: translate.teachers.melnyk_alla,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.maths, translate.subjects.algebra],
+        icons: ["icon-[tabler--math]", "icon-[gravity-ui--math-operations]"],
+    },
+    {
+        image: n_muzyka,
+        name: translate.teachers.muzyka_nadiya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.primary_school],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: a_karpova,
+        name: translate.teachers.karpova_anzhela,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.primary_school],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: l_kuzyk,
+        name: translate.teachers.kuzyk_lesya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.primary_school],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: o_dalavurak,
+        name: translate.teachers.dalavurak_oksana,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.primary_school],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: s_melychenko,
+        name: translate.teachers.melychenko_snizhana,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.primary_school],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: t_prydolob,
+        name: translate.teachers.prydolob_tetiana,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects.primary_school],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: v_dalavurak,
+        name: translate.teachers.dalavurak_viktoriya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects_female.preschool_educator],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: r_monastyrska,
+        name: translate.teachers.monastyrska_ruslana,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects_female.preschool_teacher],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+    {
+        image: v_danylenko,
+        name: translate.teachers.danylenko_viktoriya,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects_female.preschool_teacher],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+
+
+    {
+        image: d_tamara,
+        name: translate.teachers.danylenko_tamara,
+        role: translate.pedagogic_personal_female.professor,
+        description:
+            "Короткий опис викладача. Досвід, напрямки навчання та інформація про педагога.",
+        subjects: [translate.subjects_female.teachers_assistant],
+        icons: ["icon-[hugeicons--teacher]"],
+    },
+];
+const leadersRow = TEACHERS.slice(0, 2);
+const teachersRow = TEACHERS.slice(2);
+---
+
+<Layout title="About">
+    <section
+        id="teaching-staff-title"
+        class="relative overflow-hidden bg-linear-to-b from-gray-100 to-white pt-50 pb-10 md:pb-16"
+    >
+        <div
+            class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,rgba(250,204,21,0.15),transparent_45%)]"
+        >
+        </div>
+
+        <div class="relative z-10 mx-auto max-w-7xl px-6">
+            <div class="flex flex-col items-center text-center">
+                <span
+                    class="animate-fade-in mb-5 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-5 py-2 text-sm font-medium tracking-[0.25em] uppercase text-yellow-600"
+                >
+                    {translate.school_name_variants.ukrainian_school} <b>{translate.school_name_variants.name}</b>
+                </span>
+
+                <h1
+                    class="animate-fade-in-up max-w-4xl text-5xl md:text-6xl font-semibold tracking-tight text-black"
+                >
+                    {translate.teach_staff.title}
+                </h1>
+
+                <div
+                    class="mt-7 h-px w-32 bg-linear-to-r from-transparent via-yellow-400 to-transparent"
+                >
+                </div>
+
+                <p
+                    class="animate-zoom-in mt-8 max-w-3xl text-lg md:text-xl leading-relaxed text-black/60"
+                >
+                    {translate.teach_staff.label}
+                </p>
+            </div>
+        </div>
+        <div class="w-full flex justify-center items-center px-15 md:px-0 mt-20">
+            <div class="w-full md:max-w-xs bg-black/10 mx-auto h-px"></div>
+        </div>
+    </section>
+
+    <section class="relative z-20 mt-8 bg-white pb-24">
+        <div class="mx-auto max-w-7xl px-6 flex flex-col gap-10">
+            <div class="flex flex-col w-full gap-5">
+                <div class="w-full flex justify-start items-center px-4">
+                    <h3 class="text-4xl font-medium">{translate.teach_staff.direction}</h3>
+                </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10"
+                >
+                    {
+                        leadersRow.map((teacher) => (
+                            <div class="group overflow-hidden rounded-4xl border border-black/5 bg-white shadow-[0_10px_60px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_80px_rgba(0,0,0,0.12)]">
+                                <div class="relative overflow-hidden">
+                                    <Image
+                                        src={teacher.image}
+                                        alt={teacher.name}
+                                        class="h-105 w-full object-cover transition-transform duration-2500 group-hover:scale-110"
+                                    />
+
+                                    <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+
+                                    <div class="absolute bottom-0 left-0 p-8">
+                                        <span class="mb-3 inline-flex rounded-full bg-yellow-400 px-4 py-1 text-sm font-semibold text-black">
+                                            {teacher.role}
+                                        </span>
+
+                                        <h2 class="text-3xl font-semibold text-white">
+                                            {teacher.name}
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div class="p-8">
+                                    <p class="text-base leading-relaxed text-black/60">
+                                        {teacher.description}
+                                    </p>
+
+                                    <div class="mt-6 flex flex-wrap gap-2">
+                                        {teacher.subjects.map(
+                                            (subject, index) => (
+                                                <span class="flex justify-center items-center gap-2 rounded-full bg-black/5 px-4 py-2 text-sm font-medium text-black/70">
+                                                    <i
+                                                        class={`${teacher.icons[index]} opacity-60`}
+                                                    />
+                                                    {subject}
+                                                </span>
+                                            ),
+                                        )}
+                                    </div>
+
+                                    <div class="mt-8 flex items-center gap-3">
+                                        <div class="h-2 w-2 rounded-full bg-yellow-400" />
+
+                                        <span class="text-sm font-medium uppercase tracking-[0.2em] text-black/40">
+                                            {translate.school_name_variants.ukrainian_school} <b>{translate.school_name_variants.name}</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+            <div class="flex flex-col w-full gap-5">
+                <div class="w-full flex justify-start items-center px-4">
+                    <h3 class="text-4xl font-medium">{translate.teach_staff.teachers}</h3>
+                </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10"
+                >
+                    {
+                        teachersRow.map((teacher) => (
+                            <div class="group overflow-hidden rounded-4xl border border-black/5 bg-white shadow-[0_10px_60px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_80px_rgba(0,0,0,0.12)]">
+                                <div class="relative overflow-hidden">
+                                    <Image
+                                        src={teacher.image}
+                                        alt={teacher.name}
+                                        class="h-105 w-full object-cover transition-transform duration-2500 group-hover:scale-110"
+                                    />
+
+                                    <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+
+                                    <div class="absolute bottom-0 left-0 p-8">
+                                        <span class="mb-3 inline-flex rounded-full bg-yellow-400 px-4 py-1 text-sm font-semibold text-black">
+                                            {teacher.role}
+                                        </span>
+
+                                        <h2 class="text-3xl font-semibold text-white">
+                                            {teacher.name}
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div class="p-8">
+                                    <p class="text-base leading-relaxed text-black/60">
+                                        {teacher.description}
+                                    </p>
+
+                                    <div class="mt-6 flex flex-wrap gap-2">
+                                        {teacher.subjects.map(
+                                            (subject, index) => (
+                                                <span class="flex justify-center items-center gap-2 rounded-full bg-black/5 px-4 py-2 text-sm font-medium text-black/70">
+                                                    <i
+                                                        class={`${teacher.icons[index]} opacity-60`}
+                                                    />
+                                                    {subject}
+                                                </span>
+                                            ),
+                                        )}
+                                    </div>
+
+                                    <div class="mt-8 flex items-center gap-3">
+                                        <div class="h-2 w-2 rounded-full bg-yellow-400" />
+
+                                        <span class="text-sm font-medium uppercase tracking-[0.2em] text-black/40">
+                                            {translate.school_name_variants.ukrainian_school} <b>{translate.school_name_variants.name}</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

@@ -1,0 +1,483 @@
+---
+// export { getLocaleStaticPaths as getStaticPaths } from "@/src/utils/getLocaleStaticPaths";
+import Layout from "@layouts/Layout.astro";
+import type { Language } from "@/src/types/language.type";
+import { i18n } from "@/src/consts/i18n.files";
+
+const locale = Astro.params.locale as Language;
+const translate = i18n[locale];
+---
+
+<Layout title={translate.statute.title}>
+    <section
+        class="relative bg-black/5 min-h-screen flex flex-col justify-start items-center md:px-10 pt-40 md:pb-32 overflow-hidden"
+    >
+        <div
+            class="hidden md:flex absolute -top-30 -right-30 w-87.5 h-87.5 rounded-full bg-yellow-400/10 blur-3xl"
+        >
+        </div>
+
+        <div
+            class="hidden md:flex absolute -bottom-30 -left-30 w-87.5 h-87.5 rounded-full bg-blue-500/10 blur-3xl"
+        >
+        </div>
+
+        <div
+            class="relative z-10 max-w-5xl w-full flex flex-col justify-center items-center text-center"
+        >
+            <span
+                class="px-6 py-3 rounded-full border border-yellow-400/40 bg-yellow-400/5 uppercase tracking-[0.3em] text-sm text-yellow-600 font-semibold"
+            >
+                {translate.school_name_variants.ukrainian_school}
+                <b>{translate.school_name_variants.name}</b>
+            </span>
+
+            <h1
+                class="mt-8 text-5xl md:text-7xl font-black tracking-tight text-black"
+            >
+                {translate.statute.title}
+            </h1>
+
+            <div class="w-28 h-0.5 bg-yellow-400 rounded-full mt-8"></div>
+
+            <p
+                class="mt-10 text-neutral-500 text-lg md:text-2xl leading-relaxed max-w-3xl"
+            >
+                {translate.statute.description}
+            </p>
+        </div>
+
+        <div
+            class="relative z-10 mt-24 w-full max-w-5xl rounded-t-lg md:rounded-[40px] md:border md:border-black/5 bg-white/70 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,.06)] px-4 py-8 md:p-16"
+        >
+            <div class="flex flex-col gap-16">
+                <div class="flex flex-col gap-8">
+                    <h2
+                        class="text-3xl md:text-5xl font-black tracking-tight text-black"
+                    >
+                        {translate.statute.sections.general.title}
+                    </h2>
+
+                    <div class="w-20 h-0.5 bg-yellow-400 rounded-full"></div>
+
+                    <div
+                        class="flex flex-col gap-6 text-neutral-700 text-base md:text-lg leading-[1.9]"
+                    >
+                        <p>
+                            1. {
+                                translate.statute.sections.general.paragraphs
+                                    .first
+                            }
+                        </p>
+
+                        <p>
+                            2. {
+                                translate.statute.sections.general.paragraphs
+                                    .second
+                            }
+                        </p>
+
+                        <p>
+                            3. {
+                                translate.statute.sections.general.paragraphs
+                                    .third
+                            }
+                        </p>
+
+                        <div class="flex flex-col gap-4">
+                            <p>
+                                4. {
+                                    translate.statute.sections.general.goals
+                                        .title
+                                }
+                            </p>
+
+                            <ul class="flex flex-col gap-4 pl-5 list-disc">
+                                <li>
+                                    {
+                                        translate.statute.sections.general.goals
+                                            .items.first
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.general.goals
+                                            .items.second
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.general.goals
+                                            .items.third
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.general.goals
+                                            .items.fourth
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.general.goals
+                                            .items.fifth
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-col gap-4">
+                            <p>
+                                5. {
+                                    translate.statute.sections.general
+                                        .school_types.title
+                                }
+                            </p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                <div
+                                    class="rounded-3xl border border-black/5 bg-black/2 p-6"
+                                >
+                                    <h3 class="text-xl font-bold text-black">
+                                        {
+                                            translate.statute.sections.general
+                                                .school_types.primary.title
+                                        }
+                                    </h3>
+
+                                    <p class="mt-3 text-neutral-600">
+                                        {
+                                            translate.statute.sections.general
+                                                .school_types.primary
+                                                .description
+                                        }
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="rounded-3xl border border-black/5 bg-black/2 p-6"
+                                >
+                                    <h3 class="text-xl font-bold text-black">
+                                        {
+                                            translate.statute.sections.general
+                                                .school_types.middle.title
+                                        }
+                                    </h3>
+
+                                    <p class="mt-3 text-neutral-600">
+                                        {
+                                            translate.statute.sections.general
+                                                .school_types.middle.description
+                                        }
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="rounded-3xl border border-black/5 bg-black/2 p-6"
+                                >
+                                    <h3 class="text-xl font-bold text-black">
+                                        {
+                                            translate.statute.sections.general
+                                                .school_types.high.title
+                                        }
+                                    </h3>
+
+                                    <p class="mt-3 text-neutral-600">
+                                        {
+                                            translate.statute.sections.general
+                                                .school_types.high.description
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>
+                            6. {
+                                translate.statute.sections.general.paragraphs
+                                    .founder
+                            }
+                        </p>
+
+                        <p>
+                            7. {
+                                translate.statute.sections.general.paragraphs
+                                    .legal
+                            }
+                        </p>
+
+                        <p>
+                            10. {
+                                translate.statute.sections.general.paragraphs
+                                    .language
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8">
+                    <h2
+                        class="text-3xl md:text-5xl font-black tracking-tight text-black"
+                    >
+                        {translate.statute.sections.process.title}
+                    </h2>
+
+                    <div class="w-20 h-0.5 bg-yellow-400 rounded-full"></div>
+
+                    <div
+                        class="flex flex-col gap-6 text-neutral-700 text-base md:text-lg leading-[1.9]"
+                    >
+                        <p>
+                            {
+                                translate.statute.sections.process.paragraphs
+                                    .first
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.process.paragraphs
+                                    .second
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.process.paragraphs
+                                    .third
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.process.paragraphs
+                                    .fourth
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.process.paragraphs
+                                    .fifth
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.process.paragraphs
+                                    .sixth
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.process.paragraphs
+                                    .seventh
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8">
+                    <h2
+                        class="text-3xl md:text-5xl font-black tracking-tight text-black"
+                    >
+                        {translate.statute.sections.participants.title}
+                    </h2>
+
+                    <div class="w-20 h-0.5 bg-yellow-400 rounded-full"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div
+                            class="rounded-3xl border border-black/5 bg-black/2 p-8"
+                        >
+                            <h3 class="text-2xl font-bold text-black">
+                                {
+                                    translate.statute.sections.participants
+                                        .rights.title
+                                }
+                            </h3>
+
+                            <ul
+                                class="mt-6 flex flex-col gap-4 text-neutral-700 leading-[1.8] list-disc pl-5"
+                            >
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .rights.items.first
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .rights.items.second
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .rights.items.third
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .rights.items.fourth
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .rights.items.fifth
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div
+                            class="rounded-3xl border border-black/5 bg-black/2 p-8"
+                        >
+                            <h3 class="text-2xl font-bold text-black">
+                                {
+                                    translate.statute.sections.participants
+                                        .duties.title
+                                }
+                            </h3>
+
+                            <ul
+                                class="mt-6 flex flex-col gap-4 text-neutral-700 leading-[1.8] list-disc pl-5"
+                            >
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .duties.items.first
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .duties.items.second
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .duties.items.third
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .duties.items.fourth
+                                    }
+                                </li>
+
+                                <li>
+                                    {
+                                        translate.statute.sections.participants
+                                            .duties.items.fifth
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8">
+                    <h2
+                        class="text-3xl md:text-5xl font-black tracking-tight text-black"
+                    >
+                        {translate.statute.sections.management.title}
+                    </h2>
+
+                    <div class="w-20 h-0.5 bg-yellow-400 rounded-full"></div>
+
+                    <div
+                        class="flex flex-col gap-6 text-neutral-700 text-base md:text-lg leading-[1.9]"
+                    >
+                        <p>
+                            {
+                                translate.statute.sections.management.paragraphs
+                                    .first
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.management.paragraphs
+                                    .second
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.management.paragraphs
+                                    .third
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.management.paragraphs
+                                    .fourth
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8">
+                    <h2
+                        class="text-3xl md:text-5xl font-black tracking-tight text-black"
+                    >
+                        {translate.statute.sections.finance.title}
+                    </h2>
+
+                    <div class="w-20 h-0.5 bg-yellow-400 rounded-full"></div>
+
+                    <div
+                        class="flex flex-col gap-6 text-neutral-700 text-base md:text-lg leading-[1.9]"
+                    >
+                        <p>
+                            {
+                                translate.statute.sections.finance.paragraphs
+                                    .first
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.finance.paragraphs
+                                    .second
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.finance.paragraphs
+                                    .third
+                            }
+                        </p>
+
+                        <p>
+                            {
+                                translate.statute.sections.finance.paragraphs
+                                    .fourth
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

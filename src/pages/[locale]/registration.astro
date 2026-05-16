@@ -1,0 +1,426 @@
+---
+// export { getLocaleStaticPaths as getStaticPaths } from "@/src/utils/getLocaleStaticPaths";
+import Layout from "@layouts/Layout.astro";
+import type { Language } from "@/src/types/language.type";
+import { i18n } from "@/src/consts/i18n.files";
+import { actions } from "astro:actions";
+
+const locale = Astro.params.locale as Language;
+const translate = i18n[locale];
+
+const courses = [
+    translate.registration_page.form.courses.first_primary,
+    translate.registration_page.form.courses.second_primary,
+    translate.registration_page.form.courses.third_primary,
+    translate.registration_page.form.courses.fourth_primary,
+    translate.registration_page.form.courses.fifth_primary,
+    translate.registration_page.form.courses.sixth_primary,
+    translate.registration_page.form.courses.secondary,
+];
+
+const languages = [
+    translate.registration_page.form.languages.ukrainian,
+    translate.registration_page.form.languages.spanish,
+    translate.registration_page.form.languages.catalan,
+    translate.registration_page.form.languages.english,
+];
+---
+
+<Layout title="Registration">
+    <section
+        class="relative overflow-hidden px-2 pb-24 pt-25 md:px-10 md:pt-40"
+    >
+        <div
+            class="absolute left-1/2 top-0 h-120 w-120 -translate-x-1/2 rounded-full bg-yellow-400/10 blur-3xl"
+        >
+        </div>
+
+        <div
+            class="relative z-10 mx-auto flex flex-col-reverse gap-0 md:grid md:max-w-350 md:grid-cols-1 md:gap-10 xl:grid-cols-[0.9fr_1.1fr]"
+        >
+            <div
+                class="animate-fade-in-up rounded-[42px] px-2 py-8 md:border md:border-black/5 md:bg-white/70 md:p-12 md:shadow-[0_20px_80px_rgba(0,0,0,.04)] md:backdrop-blur-xl"
+            >
+                <span
+                    class="animate-fade-in mb-5 rounded-full border border-yellow-400/30 bg-yellow-400/10 px-5 py-2 text-sm font-medium tracking-[0.25em] uppercase text-yellow-600"
+                >
+                    {translate.school_name_variants.ukrainian_school}
+                    <b>{translate.school_name_variants.name}</b>
+                </span>
+
+                <h1
+                    class="mt-8 font-heading text-5xl leading-[0.9] font-black tracking-tighter text-black md:text-7xl"
+                >
+                    {translate.registration_page.title}
+                </h1>
+
+                <p class="mt-8 max-w-xl text-lg leading-[1.9] text-black/55">
+                    {translate.registration_page.description}
+                </p>
+
+                <div class="mt-14 flex flex-col gap-5">
+                    <div
+                        class="flex items-start gap-4 rounded-3xl border border-black/5 bg-black/2 p-5"
+                    >
+                        <div
+                            class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-yellow-400 text-2xl text-black"
+                        >
+                            <i class="icon-[solar--users-group-rounded-bold]"
+                            ></i>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-black">
+                                {
+                                    translate.registration_page.cards.education
+                                        .title
+                                }
+                            </h3>
+
+                            <p
+                                class="mt-2 text-sm leading-relaxed text-black/50"
+                            >
+                                {
+                                    translate.registration_page.cards.education
+                                        .description
+                                }
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex items-start gap-4 rounded-3xl border border-black/5 bg-black/2 p-5"
+                    >
+                        <div
+                            class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-blue-500 text-2xl text-white"
+                        >
+                            <i class="icon-[solar--document-bold]"></i>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-black">
+                                {
+                                    translate.registration_page.cards.documents
+                                        .title
+                                }
+                            </h3>
+
+                            <p
+                                class="mt-2 text-sm leading-relaxed text-black/50"
+                            >
+                                {
+                                    translate.registration_page.cards.documents
+                                        .description
+                                }
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex items-start gap-4 rounded-3xl border border-black/5 bg-black/2 p-5"
+                    >
+                        <div
+                            class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-red-500 text-2xl text-white"
+                        >
+                            <i class="icon-[solar--heart-bold]"></i>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-black">
+                                {
+                                    translate.registration_page.cards.community
+                                        .title
+                                }
+                            </h3>
+
+                            <p
+                                class="mt-2 text-sm leading-relaxed text-black/50"
+                            >
+                                {
+                                    translate.registration_page.cards.community
+                                        .description
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="animate-fade-in-up overflow-hidden rounded-[42px] md:border md:border-black/5 md:bg-white/80 md:shadow-[0_20px_80px_rgba(0,0,0,.05)] md:backdrop-blur-xl"
+            >
+                <div class="border-b border-black/5 px-2 py-10 md:px-12">
+                    <span
+                        class="text-xs font-bold uppercase tracking-[0.35em] text-yellow-600"
+                    >
+                        {translate.registration_page.form.badge}
+                    </span>
+
+                    <h2
+                        class="mt-6 text-5xl font-black tracking-[-0.04em] text-black"
+                    >
+                        {translate.registration_page.form.title}
+                    </h2>
+
+                    <p
+                        class="mt-6 max-w-2xl text-lg leading-[1.9] text-black/50"
+                    >
+                        {translate.registration_page.form.description}
+                    </p>
+                </div>
+
+                <form method="POST" action={actions.sendRegistration} class="flex flex-col gap-8 px-2 py-8 md:p-12">
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {
+                                    translate.registration_page.form
+                                        .student_first_name
+                                }
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder={translate.registration_page.form
+                                    .student_first_name_placeholder}
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {
+                                    translate.registration_page.form
+                                        .student_last_name
+                                }
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder={translate.registration_page.form
+                                    .student_last_name_placeholder}
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {
+                                    translate.registration_page.form
+                                        .student_middle_name
+                                }
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder={translate.registration_page.form
+                                    .student_middle_name_placeholder}
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {translate.registration_page.form.birth_date}
+                            </label>
+
+                            <input
+                                type="date"
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {translate.registration_page.form.course}
+                            </label>
+
+                            <details class="group relative">
+                                <summary
+                                    class="flex h-16 cursor-pointer list-none items-center justify-between rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg text-black/60 transition-all hover:border-yellow-400 hover:bg-yellow-400/5"
+                                >
+                                    <span>
+                                        {
+                                            translate.registration_page.form
+                                                .select_course
+                                        }
+                                    </span>
+
+                                    <i
+                                        class="icon-[solar--alt-arrow-down-linear] text-2xl transition-transform duration-300 group-open:rotate-180"
+                                    ></i>
+                                </summary>
+
+                                <div
+                                    class="absolute left-0 top-[calc(100%+12px)] z-50 flex w-full animate-fade-in-up flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-2xl"
+                                >
+                                    {
+                                        courses.map((course) => (
+                                            <button
+                                                type="button"
+                                                class="cursor-pointer px-6 py-5 text-left text-lg transition-all hover:bg-yellow-400/10"
+                                            >
+                                                {course}
+                                            </button>
+                                        ))
+                                    }
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="mt-2 h-px w-full bg-black/5"></div>
+
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {
+                                    translate.registration_page.form
+                                        .legal_guardian_first_name
+                                }
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder={translate.registration_page.form
+                                    .legal_guardian_first_name_placeholder}
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {
+                                    translate.registration_page.form
+                                        .legal_guardian_last_name
+                                }
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder={translate.registration_page.form
+                                    .legal_guardian_last_name_placeholder}
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {
+                                    translate.registration_page.form
+                                        .legal_guardian_middle_name
+                                }
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder={translate.registration_page.form
+                                    .legal_guardian_middle_name_placeholder}
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <label
+                                class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                            >
+                                {translate.registration_page.form.phone}
+                            </label>
+
+                            <input
+                                type="tel"
+                                placeholder={translate.registration_page.form
+                                    .phone_placeholder}
+                                class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                        <label
+                            class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                        >
+                            {translate.registration_page.form.email}
+                        </label>
+
+                        <input
+                            type="email"
+                            placeholder={translate.registration_page.form
+                                .email_placeholder}
+                            class="h-16 rounded-3xl border border-black/10 bg-black/1.5 px-6 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                        />
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                        <label
+                            class="text-xs font-bold uppercase tracking-[0.3em] text-black/45"
+                        >
+                            {
+                                translate.registration_page.form
+                                    .additional_information
+                            }
+                        </label>
+
+                        <textarea
+                            rows="6"
+                            placeholder={translate.registration_page.form
+                                .additional_information_placeholder}
+                            class="rounded-4xl resize-none border border-black/10 bg-black/1.5 px-6 py-5 text-lg outline-none transition-all focus:border-yellow-400 focus:bg-yellow-400/5"
+                        ></textarea>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="group mt-2 flex h-18 cursor-pointer items-center justify-center gap-3 rounded-full bg-black px-8 text-xl font-bold text-white transition-all hover:scale-[1.01] hover:bg-black/90 active:scale-99"
+                    >
+                        {translate.registration_page.form.submit}
+
+                        <i
+                            class="icon-[solar--arrow-right-linear] text-2xl transition-transform duration-300 group-hover:translate-x-1"
+                        ></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        const dropdowns = document.querySelectorAll("details");
+
+        dropdowns.forEach((dropdown) => {
+            dropdown.addEventListener("toggle", () => {
+                if (!dropdown.open) return;
+
+                dropdowns.forEach((otherDropdown) => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.removeAttribute("open");
+                    }
+                });
+            });
+        });
+    });
+</script>

@@ -1,0 +1,71 @@
+<div
+    id="arrow-scroll-top"
+    class="hidden transition-all fixed bottom-5 right-5 z-9999"
+>
+    <button
+        type="button"
+        class="cursor-pointer w-10 h-10 rounded-xl md:backdrop-blur-none backdrop-blur-xl md:bg-gray-500/10 bg-gray-500/80 flex justify-center items-center text-gray-600 text-xl hover:scale-105"
+    >
+        <i class="icon-[mdi--arrow-up] md:text-current text-white"></i>
+    </button>
+</div>
+
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        const $arrowScrollTop = document.getElementById("arrow-scroll-top");
+        $arrowScrollTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        });
+
+        let isVisible = false;
+
+        window.addEventListener("scroll", () => {
+            const shouldShow = window.scrollY >= 400;
+
+            if (shouldShow && !isVisible) {
+                isVisible = true;
+
+                $arrowScrollTop.classList.remove(
+                    "hidden",
+                    "animate-fade-out-down",
+                );
+
+                void $arrowScrollTop.offsetWidth;
+
+                $arrowScrollTop.classList.add(
+                    "flex",
+                    "animate-fade-in-up",
+                    "animate-duration-200",
+                );
+            }
+
+            if (!shouldShow && isVisible) {
+                isVisible = false;
+
+                $arrowScrollTop.classList.remove("animate-fade-in-up");
+
+                void $arrowScrollTop.offsetWidth;
+
+                $arrowScrollTop.classList.add(
+                    "animate-fade-out-down",
+                    "animate-duration-200",
+                );
+
+                setTimeout(() => {
+                    if (!isVisible) {
+                        $arrowScrollTop.classList.add("hidden");
+
+                        $arrowScrollTop.classList.remove(
+                            "flex",
+                            "animate-fade-out-down",
+                            "animate-duration-200",
+                        );
+                    }
+                }, 200);
+            }
+        });
+    });
+</script>

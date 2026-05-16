@@ -1,0 +1,279 @@
+---
+import type { Language } from "../types/language.type";
+import navigation from "@consts/navigation";
+import { i18n } from "@consts/i18n.files";
+
+const { detectedLocale = "" } = Astro.props;
+const locale = (Astro.params.locale as Language) || detectedLocale;
+const translate = i18n[locale];
+const path = Astro.url.pathname;
+const isBase = path === `/${locale}/`;
+---
+
+<nav
+    id="site-navigation"
+    class="border border-transparent max-[1200px]:hidden flex flex-col justify-center items-center px-6 py-3"
+>
+    <ul
+        class="group hidden md:flex flex-row justify-center items-center gap-5 list-none"
+    >
+        {
+            navigation.map((nav) => {
+                const { href, translate_key, children } = nav;
+
+                return (
+                    <li class="flex flex-col">
+                        {children.length > 0 ? (
+                            <button
+                                type="button"
+                                class={`${path === `/${locale}${href}` ? "text-red-500" : isBase ? "invert-color" : ""} uppercase transition-all ${path !== `/${locale}${href}` ? "group-hover:opacity-50 hover:opacity-100!" : ""} cursor-pointer flex justify-center items-center flex-row gap-1 group/icon link-button`}
+                                data-children={JSON.stringify(children)}
+                            >
+                                {translate.header[translate_key]}
+                                {/* <i class="icon-[mdi-light--chevron-down] text-xl group-hover/icon:rotate-180 transition-transform" /> */}
+                            </button>
+                        ) : (
+                            <>
+                                <a
+                                    href={`/${locale}${href}`}
+                                    class={`${path === `/${locale}${href}` ? "text-red-500" : isBase ? "invert-color" : ""} uppercase transition-all ${path !== `/${locale}${href}` ? "group-hover:opacity-50 hover:opacity-100!" : ""}`}
+                                >
+                                    {translate.header[translate_key]}
+                                </a>
+                                <div
+                                    class={`bg-red-500 animate-width h-px ${path === `/${locale}${href}` ? "opacity-100" : "opacity-0"}`}
+                                />
+                            </>
+                        )}
+                    </li>
+                );
+            })
+        }
+    </ul>
+</nav>
+
+<script is:inline define:vars={{ locale, translate, isBase, path }}>
+    document.addEventListener("astro:page-load", () => {
+        const $nav = document.getElementById("site-navigation");
+        const $nav_links = $nav.querySelectorAll("ul li a");
+        const $nav_buttons = $nav.querySelectorAll("ul li button");
+        const $header = document.getElementById("site-header");
+        const $blurred_area = document.getElementById("blurred-area");
+        const $underHero = document.getElementById("under-hero");
+        const $underHeroContent = document.getElementById("under-hero-content");
+        const items = document.querySelectorAll("[data-children]");
+        const getScrolledState = () => {
+            return isBase && window.scrollY > 180;
+        };
+
+        let closeTimeout;
+        let isClosing = false;
+        let isOpen = false;
+
+        if (isBase) {
+            $header.addEventListener("mouseenter", () => {
+                $header.classList.add("bg-black/65", "border-white/10");
+            });
+
+            $header.addEventListener("mouseleave", () => {
+                if ($underHero.classList.contains("opacity-0")) {
+                    $header.classList.remove("bg-black/65", "border-white/10");
+                }
+            });
+
+            $underHero.addEventListener("mouseenter", () => {
+                $header.classList.add("bg-black/65", "border-white/10");
+            });
+        }
+
+        const closeMegaMenu = () => {
+            if (isClosing || !isOpen) return;
+
+            isClosing = true;
+            isOpen = false;
+
+            $underHero.style.height = "0px";
+
+            setTimeout(() => {
+                $underHero.classList.add("opacity-0", "pointer-events-none");
+
+                $underHeroContent.innerHTML = "";
+
+                if (isBase) {
+                    $header.classList.remove("bg-black/65", "border-white/10");
+                }
+
+                setTimeout(() => {
+                    isClosing = false;
+                }, 120);
+            }, 250);
+        };
+
+        let blurTimeout;
+
+        const showBlurredArea = () => {
+            clearTimeout(blurTimeout);
+
+            $blurred_area.classList.remove("opacity-0", "pointer-events-none");
+
+            $blurred_area.classList.add("opacity-100");
+        };
+
+        const hideBlurredArea = () => {
+            clearTimeout(blurTimeout);
+
+            $blurred_area.classList.remove("opacity-100");
+
+            $blurred_area.classList.add("opacity-0", "pointer-events-none");
+        };
+
+        items.forEach((item) => {
+            item.addEventListener("mouseenter", () => {
+                if (isClosing) return;
+                if ($blurred_area.classList.contains("opacity-0"))
+                    showBlurredArea();
+                document.body.classList.add("overflow-hidden!");
+                clearTimeout(closeTimeout);
+
+                const children = JSON.parse(item.dataset.children || "[]");
+
+                if (!children.length) return;
+
+                const title = item.textContent.trim();
+                const isScrolled = getScrolledState();
+
+                isOpen = true;
+                $underHero.classList.remove("opacity-0", "pointer-events-none");
+
+                requestAnimationFrame(() => {
+                    $underHero.style.height = "320px";
+                });
+
+                $underHeroContent.innerHTML = `
+                    <div class="flex flex-col gap-2">
+                        <span class="text-sm uppercase text-yellow-400 font-medium">
+                            ${title}
+                        </span>
+
+                        <div class="flex flex-col gap-1 mt-4">
+                            ${children
+                                .map((child) => {
+                                    const isActive =
+                                        path === `/${locale}${child.href}`;
+
+                                    return `
+                                        <a
+                                            href="/${locale}${child.href}"
+                                            class="
+                                                group/item
+                                                flex
+                                                items-center
+                                                justify-between
+                                                rounded-2xl
+                                                px-5
+                                                py-4
+                                                transition-all
+                                                duration-200
+                                                hover:text-red-500
+                                                ${
+                                                    isActive
+                                                        ? isScrolled
+                                                            ? "bg-black/5 text-red-500"
+                                                            : "bg-white/10 text-red-500"
+                                                        : isScrolled || !isBase
+                                                          ? "text-black hover:bg-black/4"
+                                                          : "text-white hover:bg-white/6"
+                                                }
+                                            "
+                                        >
+                                            <div class="flex flex-col">
+                                                <span class="text-lg font-medium uppercase">
+                                                    ${translate.header[child.translate_key]}
+                                                </span>
+                                            </div>
+
+                                            <i class="icon-[solar--arrow-right-linear] text-xl opacity-40 transition-transform group-hover/item:translate-x-1"></i>
+                                        </a>
+                                    `;
+                                })
+                                .join("")}
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <span class="${
+                                isScrolled || !isBase
+                                    ? "text-black/40"
+                                    : "text-white/50"
+                            } text-sm uppercase tracking-[0.2em]">
+                                ${translate.school_name_variants.ukrainian_school}
+                            </span>
+
+                            <h3 class="${
+                                isScrolled || !isBase
+                                    ? "text-black"
+                                    : "text-white"
+                            } mt-5 text-5xl font-black leading-none max-w-md">
+                                ${translate.school_name_variants.name}
+                            </h3>
+
+                            <p class="${
+                                isScrolled || !isBase
+                                    ? "text-black/50"
+                                    : "text-white/60"
+                            } mt-6 text-lg leading-relaxed max-w-md">
+                                ${translate.under_header}
+                            </p>
+                        </div>
+
+                        <div class="mt-10">
+                            <div class="h-px w-full ${
+                                isScrolled || !isBase
+                                    ? "bg-black/10"
+                                    : "bg-white/10"
+                            }"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            item.addEventListener("mouseleave", () => {
+                closeTimeout = setTimeout(() => {
+                    closeMegaMenu();
+                    document.body.classList.remove("overflow-hidden!");
+                    if ($blurred_area.classList.contains("opacity-100"))
+                        hideBlurredArea();
+                }, 180);
+            });
+        });
+
+        $underHero.addEventListener("mouseenter", () => {
+            clearTimeout(closeTimeout);
+            if ($blurred_area.classList.contains("opacity-0")) showBlurredArea();
+            $nav_links.forEach((link) => {
+                if (!link.classList.contains("text-red-500")) {
+                    link.classList.add("opacity-50");
+                }
+            });
+
+            $nav_buttons.forEach((button) => {
+                if (!button.classList.contains("text-red-500")) {
+                    button.classList.add("opacity-50");
+                }
+            });
+            document.body.classList.add("overflow-hidden!");
+        });
+
+        $underHero.addEventListener("mouseleave", () => {
+            closeMegaMenu();
+            if ($blurred_area.classList.contains("opacity-100")) hideBlurredArea();
+            $nav_links.forEach((link) => link.classList.remove("opacity-50"));
+
+            $nav_buttons.forEach((button) =>
+                button.classList.remove("opacity-50"),
+            );
+            document.body.classList.remove("overflow-hidden!");
+        });
+    });
+</script>

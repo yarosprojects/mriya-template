@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/typography';
+@import 'tailwind-animations';
+@plugin "@iconify/tailwind4";
+
+@font-face {
+    font-family: "Cormorant Garamond";
+    src: url("/fonts/CormorantGaramond/CormorantGaramond.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("/fonts/Inter/Inter.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+:root {
+    --header-height: 60px;
+    --font-heading: "Cormorant Garamond", serif;
+    --font-body: "Inter", sans-serif;
+}
+
+
+html {
+    scrollbar-gutter: stable;
+    font-family: var(--font-body);
+}
+
+@utility animate-width {
+    animation: width .5s ease;
+}
+
+@utility animate-fade-in-up-lg {
+    animation: fade-in-up-lg .8s ease;
+}
+
+::-webkit-scrollbar {
+    @apply w-2;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-yellow-500 rounded-full;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+}
+
+@keyframes fade-in-up-lg {
+    0% {
+        opacity: 0;
+        transform: translateY(120px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes width {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}

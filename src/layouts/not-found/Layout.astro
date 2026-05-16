@@ -1,0 +1,32 @@
+---
+import "../../styles/global.css";
+import type { Language } from "../../types/language.type";
+import { defaultLocale, locales } from "@consts/locales";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { i18n } from "@/src/consts/i18n.files";
+import Header from "@/src/components/Header.astro";
+import Footer from "@/src/components/Footer.astro";
+
+const locale = Astro.params.locale as Language;
+const pathname = Astro.url.pathname;
+const detectedLocale =
+    locales.find((locale) => pathname.startsWith(`/${locale}/`)) ??
+    defaultLocale;
+    const translate = i18n[detectedLocale];
+---
+
+<!doctype html>
+<html lang={`${detectedLocale || "es-ES"}`}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="generator" content={Astro.generator} />
+		<title>404 - {translate.errors.not_found}</title>
+	</head>
+	<body>
+        <Header detectedLocale={detectedLocale} />
+		<slot />
+		<Footer detectedLocale={detectedLocale} />
+	</body>
+</html>

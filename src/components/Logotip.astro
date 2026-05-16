@@ -1,0 +1,195 @@
+---
+const path = Astro.url.pathname || '/';
+const { locale, pathname } = Astro.props;
+const isBase = pathname === `/${locale}/`;
+---
+<svg
+    width="250"
+    height="72"
+    viewBox="0 0 360 72"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="hidden md:flex"
+>
+    <defs>
+        <linearGradient id="bookGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffffff"></stop>
+            <stop offset="100%" stop-color="#cbd5e1"></stop>
+        </linearGradient>
+    </defs>
+
+    <!-- Symbol -->
+    <g transform="translate(10 12)">
+        <!-- Book -->
+        <path
+            d="M8 10C15 6 24 7 34 14V46C24 39 15 38 8 42V10Z"
+            fill="none"
+            stroke="url(#bookGradient)"
+            stroke-width="2.4"
+            stroke-linejoin="round"></path>
+
+        <path
+            d="M36 14C46 7 55 6 62 10V42C55 38 46 39 36 46V14Z"
+            fill="none"
+            stroke="url(#bookGradient)"
+            stroke-width="2.4"
+            stroke-linejoin="round"></path>
+
+        <!-- M inside -->
+        <path
+            d="M20 36C24 16 32 14 36 30C40 14 48 16 52 36"
+            stroke="#000000"
+            class={`${isBase ? 'm-path' : ''}`}
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+
+        <!-- Accent lines -->
+        <path
+            d="M2 50C18 46 28 46 36 50"
+            stroke="#2563eb"
+            stroke-width="2.5"
+            stroke-linecap="round"></path>
+
+        <path
+            d="M36 50C46 46 56 46 68 50"
+            stroke="#facc15"
+            stroke-width="2.5"
+            stroke-linecap="round"></path>
+    </g>
+
+    <!-- Typography -->
+    <g transform="translate(92 0)">
+        <text
+            x="0"
+            y="22"
+            fill="#94a3b8"
+            class={`${isBase ? 'change-stroke-color' : ''}`}
+            font-size="10"
+            font-family="Inter, Arial, sans-serif"
+            letter-spacing="3"
+            font-weight="700"
+        >
+            УКРАЇНСЬКА ШКОЛА
+        </text>
+
+        <text
+            x="0"
+            y="55"
+            fill="#94a3b8"
+            class={`${isBase ? 'change-stroke-color' : ''}`}
+            font-size="30"
+            font-family="Georgia, serif"
+            font-style="italic"
+            font-weight="700"
+        >
+            Мрія
+        </text>
+
+        <text
+            x="92"
+            y="48"
+            fill="#94a3b8"
+            class={`${isBase ? 'change-stroke-color' : ''}`}
+            font-size="11"
+            font-family="Inter, Arial, sans-serif"
+            letter-spacing="2"
+            font-weight="500"
+        >
+            Barcelona
+        </text>
+    </g>
+</svg>
+
+<svg
+    width="150"
+    height="72"
+    viewBox="25 5 150 80"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="flex md:hidden"
+>
+    <defs>
+        <linearGradient id="bookGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffffff"></stop>
+            <stop offset="100%" stop-color="#cbd5e1"></stop>
+        </linearGradient>
+    </defs>
+
+    <!-- Symbol -->
+    <g transform="translate(10 12)">
+        <!-- Book -->
+        <path
+            d="M8 10C15 6 24 7 34 14V46C24 39 15 38 8 42V10Z"
+            fill="none"
+            stroke="url(#bookGradient)"
+            stroke-width="2.4"
+            stroke-linejoin="round"></path>
+
+        <path
+            d="M36 14C46 7 55 6 62 10V42C55 38 46 39 36 46V14Z"
+            fill="none"
+            stroke="url(#bookGradient)"
+            stroke-width="2.4"
+            stroke-linejoin="round"></path>
+
+        <!-- M inside -->
+        <path
+            d="M20 36C24 16 32 14 36 30C40 14 48 16 52 36"
+            stroke="#000000"
+            class={`${isBase ? 'm-path' : ''}`}
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+
+        <!-- Accent lines -->
+        <path
+            d="M2 50C18 46 28 46 36 50"
+            stroke="#2563eb"
+            stroke-width="2.5"
+            stroke-linecap="round"></path>
+
+        <path
+            d="M36 50C46 46 56 46 68 50"
+            stroke="#facc15"
+            stroke-width="2.5"
+            stroke-linecap="round"></path>
+    </g>
+</svg>
+
+<style>
+    .m-path /*, #m-path-inverted */ {
+        animation: mriya-logo-scroll linear forwards;
+        animation-timeline: scroll();
+        animation-range: 0 250px;
+    }
+
+    .m-path { stroke: #94a3b8; }
+    /* #m-path-inverted { stroke: #000000; } */
+
+    .change-stroke-color {
+        animation: change-stroke-color linear forwards;
+        animation-timeline: scroll();
+        animation-range: 0 250px;
+    }
+
+    @keyframes change-stroke-color {
+        from {
+            fill: #ffffff;
+        }
+
+        to {
+            fill: #94a3b8;
+        }
+    }
+
+    @keyframes mriya-logo-scroll {
+        from {
+            stroke: #ffffff;
+        }
+
+        to {
+            stroke: #000000;
+        }
+    }
+</style>
